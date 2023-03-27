@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Patchwork" default="jar">
+
+    <property name="src.dir" value="src"/>
+    <property name="javadoc.dir" value="docs/doc"/>
+    <property name="classes.dir" value="classes"/>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="lib/zen5.jar"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <manifest file="MANIFEST.MF">
+            <attribute name="Main-Class" value="fr.uge.patchwork.main.Main"/>
+        </manifest>
+        <jar destfile="Patchwork.jar" basedir="${classes.dir}" manifest="MANIFEST.MF">
+            <zipfileset src="lib/zen5.jar"/>
+            <fileset dir="src"/>
+        </jar>
+    </target>
+
+    <target name="javadoc">
+        <mkdir dir="${javadoc.dir}"/>
+        <javadoc packagenames="fr.uge.patchwork" sourcepath="${src.dir}" destdir="${javadoc.dir}" classpath="lib/zen5.jar"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${classes.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+</project>
